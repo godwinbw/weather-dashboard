@@ -5,9 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./develop/assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@2.0.5/build/pure-min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@2.0.5/build/grids-responsive-min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <script src="./develop/assets/js/javascript.js"></script>
+    <div class="pure-g" id="banner-row">
+      <div class="pure-u-1" id="banner">
+        <h2>Weather Dashboard</h2>
+      </div>
+    </div>
+    <div class="pure-g" id="main-content">
+      <div class="pure-u-1 pure-u-sm-1-4" id="search-column">
+        <div class="pure-u-1" id="search-box">search box</div>
+        <div class="pure-u-1" id="search-history">search history</div>
+      </div>
+      <div class="pure-u-1 pure-u-sm-3-4" id="search-results">
+        <div class="pure-g" id="search-city-container">
+          <div class="pure-u-1" id="search-city-results">
+            Search city results
+          </div>
+        </div>
+        <dic class="pure-g" id="five-day-container">
+          <div class="pure-u-1 pure-u-sm-1-5" id="day-1-results">day 1</div>
+          <div class="pure-u-1 pure-u-sm-1-5" id="day-2-results">day 2</div>
+          <div class="pure-u-1 pure-u-sm-1-5" id="day-3-results">day 3</div>
+          <div class="pure-u-1 pure-u-sm-1-5" id="day-4-results">day 4</div>
+          <div class="pure-u-1 pure-u-sm-1-5" id="day-5-results">day 5</div>
+        </dic>
+      </div>
+    </div>
+
+    <script src="./assets/js/javascript.js"></script>
   </body>
 </html>

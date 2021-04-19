@@ -39,6 +39,7 @@ body {
 /* SEARCH CITY styling start */
 
 #search-box {
+  width: 95%;
   margin-top: 10px;
   margin-left: 5px;
   margin-right: 5px;
@@ -55,4 +56,9 @@ body {
 #search-button {
   width: 100%;
   border-radius: 5px;
+}
+
+/* SEARCH HISTORY styling start */
+#search-history {
+  border-top: 2px solid darkslategrey;
 }

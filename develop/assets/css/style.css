@@ -5,7 +5,17 @@
   --btn-history: #b7b7b7;
   --uv-bg: #157e51;
   --daily-bg: #33475a;
+  --uv-low: #99cc00;
+  --uv-moderate: #ffff00;
+  --uv-high: #ff992b;
+  --uv-veryhigh: #ff0000;
+  --uv-extreme: #be00be;
 }
+
+/* UV color index data from this website
+http://nou-tt.blogspot.com/2016/02/what-uv-index-is-all-about.html
+
+*/
 
 /* remove default margins from every elememt */
 * {
@@ -61,4 +71,11 @@ body {
 /* SEARCH HISTORY styling start */
 #search-history {
   border-top: 2px solid darkslategrey;
+}
+
+.search-history-button {
+  width: 95%;
+  margin-top: 10px;
+  margin-left: 5px;
+  border-radius: 5px;
 }

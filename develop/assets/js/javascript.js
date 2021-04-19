@@ -7,22 +7,83 @@
 // 8 to 10 -> very high
 // 11+ -> extreme
 
-// function to convert user-entered search time to title case (all words have first letter capitalized)
-var getTitleCase = function (str) {};
+// variable to hold our search history
+var searchHistory = [];
 
-// when search button is clicked
-var searchClicked = function (event) {
-  event.preventDefault();
+// load our search history from local storage to search history array
+var getSearchHistoryFromLocalStorage = function () {
+  console.log("getSearchHistoryFromLocalStorage START...");
+  searchHistory = JSON.parse(localStorage.getItem("search-history"));
 
-  // get the search city
-  var searchCity = document.getElementById("search-city").value;
-  console.log("search button clicked, city -> " + searchCity);
+  if (!searchHistory) {
+    searchHistory = [];
+  }
+};
 
+// save contents of searchHistory array to local storage
+var saveSearchHistoryToLocalStorage = function () {
+  console.log("saveSearchHistoryToLocalStorage");
+  localStorage.setItem("search-history", JSON.stringify(searchHistory));
+};
+
+// renders the search history buttons
+var renderSearchHistoryButtons = function () {
+  console.log("renderSearchHistoryButtons START...");
+
+  //remove all content from search-history div
+  $("#search-history").empty();
+
+  // create a button for each search history item
+  searchHistory.forEach(function (searchItem) {
+    // createa a button element, and append it to the search-history div
+    var btn = $(
+      "<button class='pure-button search-history-button' searchTerm='" +
+        searchItem +
+        "'>" +
+        searchItem +
+        "</button>"
+    );
+    $("#search-history").append(btn);
+  });
+};
+
+// add a city to our search history. will not add if it is already in the list
+var addItemToSearchHistory = function (item) {
+  console.log("addItemToSearchHistory START...");
+
+  // assume this item is not in the search history
+  var itemFound = false;
+
+  if (searchHistory) {
+    searchHistory.forEach(function (searchItem) {
+      if (searchItem === item) {
+        itemFound = true;
+        console.log("    ....found " + item + " in search history alrready");
+      }
+    });
+  }
+
+  if (!itemFound) {
+    // add to our search history
+    searchHistory.push(item);
+    // now save our search history to local storage
+    saveSearchHistoryToLocalStorage();
+
+    //now render our search history buttons
+    renderSearchHistoryButtons();
+  }
+};
+
+// this is the function that gets the current & 5 day forecast for a city
+var getWeatherForCity = function (searchCity) {
   /// get the lat & lon of the user entered city
+  console.log("getWeatherForCity START...");
+
   var cityDataUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     searchCity +
     "&appid=1282b8d2f151eb14ccddbfba4ac891f0";
+
   fetch(cityDataUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
@@ -31,6 +92,8 @@ var searchClicked = function (event) {
         // get the lat & the lon for this city, we will need it to call the detailed weather data
         var lat = data.coord.lat;
         var lon = data.coord.lon;
+        var cityFound = data.name;
+        console.log("city found -> " + cityFound);
         console.log("lat -> " + lat + ", lon -> " + lon);
 
         var oneCallUrl =
@@ -48,6 +111,8 @@ var searchClicked = function (event) {
               // 1. add the city to our search history
               // 2. make a current conditions div and populate with data
               // 3. make a 5 day forecast div and populate with data
+
+              addItemToSearchHistory(cityFound);
             });
           } else {
             // had trouble getting detailed data
@@ -68,6 +133,27 @@ var searchClicked = function (event) {
   });
 };
 
+// when search button is clicked
+var searchClicked = function (event) {
+  event.preventDefault();
+
+  // get the search city
+  var searchCity = document.getElementById("search-city").value;
+  console.log("search button clicked, city -> " + searchCity);
+
+  getWeatherForCity(searchCity);
+};
+
+// when search history button is clicked
+var searchHistoryClicked = function (event) {
+  console.log("searchHistoryClicked!");
+  //get the search city
+  var searchCity = $(event.target).attr("searchterm");
+  console.log("searchHistoryClicked, searchCity -> " + searchCity);
+
+  getWeatherForCity(searchCity);
+};
+
 ////
 ////  This section runs when script is loaded
 ////
@@ -78,6 +164,12 @@ $(document).ready(function () {
 
   // disable search button until text is entered into the text box
   $("#search-button").prop("disabled", true);
+
+  // load our search history
+  getSearchHistoryFromLocalStorage();
+
+  // render search history buttons
+  renderSearchHistoryButtons();
 });
 
 // search button will stay disabled, until there is data in the search box
@@ -100,3 +192,6 @@ $("#search-city").keyup(function () {
 
 // search button is clicked
 $("#search-button").on("click", searchClicked);
+
+// search history button is clicked
+$(document).on("click", ".search-history-button", searchHistoryClicked);

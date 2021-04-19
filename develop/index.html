@@ -23,7 +23,24 @@
     </div>
     <div class="pure-g" id="main-content">
       <div class="pure-u-1 pure-u-sm-1-4" id="search-column">
-        <div class="pure-u-1" id="search-box">search box</div>
+        <div class="pure-u-1" id="search-box">
+          <form class="pure-form pure-form-stacked">
+            <h3 id="search-title">Search for a City:</h3>
+            <input
+              type="text"
+              id="search-city"
+              placeholder="enter a city"
+              name="city"
+            />
+            <button
+              type="submit"
+              class="pure-button pure-button-primary"
+              id="search-button"
+            >
+              Search
+            </button>
+          </form>
+        </div>
         <div class="pure-u-1" id="search-history">search history</div>
       </div>
       <div class="pure-u-1 pure-u-sm-3-4" id="search-results">
@@ -42,6 +59,11 @@
       </div>
     </div>
 
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+    ></script>
     <script src="./assets/js/javascript.js"></script>
   </body>
 </html>

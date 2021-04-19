@@ -35,3 +35,24 @@ body {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+/* SEARCH CITY styling start */
+
+#search-box {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+#search-title {
+  margin-bottom: 10px;
+}
+
+#search-city {
+  width: 100%;
+}
+
+#search-button {
+  width: 100%;
+  border-radius: 5px;
+}

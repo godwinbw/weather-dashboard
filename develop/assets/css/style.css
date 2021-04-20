@@ -91,7 +91,7 @@ body {
 
 #current-conditions-headline {
   margin-left: 10px;
-  margin-top: 10px;
+  margin-top: 0px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -160,4 +160,57 @@ body {
   border-radius: 5px;
   background-color: var(--uv-extreme);
   color: white;
+}
+
+/* Five Day Forecast styling start */
+#five-day-title {
+  margin-top: 10px;
+}
+
+#five-day-detail {
+  margin-top: 10px;
+}
+
+.daily-detail {
+  background-color: var(--daily-bg);
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+.daily-detail-date {
+  color: white;
+  font-size: small;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.daily-detail-weather-icon {
+  max-height: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.daily-detail-temp {
+  color: white;
+  font-size: small;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+}
+
+.daily-detail-wind {
+  color: white;
+  font-size: small;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+}
+
+.daily-detail-humidity {
+  color: white;
+  font-size: small;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
 }

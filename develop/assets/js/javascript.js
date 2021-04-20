@@ -209,10 +209,104 @@ var createCurrentConditions = function (cityName, data) {
   currentConditions.append(border);
 };
 
+// this gets date for 5 day forecast div
+var getSingleDayDate = function (dailyDateUnix) {
+  var currentDate = moment.unix(dailyDateUnix).format("MM/DD/YYYY");
+
+  return $("<h4 class='daily-detail-date'>" + currentDate + "</h4>");
+};
+
+// this gets weather icon for 5 day forecast div
+var getSingleDayWeatherIcon = function (dailyIcon) {
+  var currentIconUrl =
+    "http://openweathermap.org/img/wn/" + dailyIcon + "@2x.png";
+
+  return $(
+    "<img class='daily-detail-weather-icon' src='" + currentIconUrl + "'></img>"
+  );
+};
+
+// this gets temp for 5 day forecast div
+var getSingleDayTemp = function (dailyTemp) {
+  var currentComponents = dailyTemp.toString().split(".");
+  var finalTemp =
+    "Temp: " + currentComponents[0] + " " + String.fromCharCode(176) + "F";
+
+  return $("<div class='daily-detail-temp'>" + finalTemp + "</div>");
+};
+
+// this gets wind for 5 day forecast div
+var getSingleDayWind = function (dailyWind) {
+  var finalWind = "Wind: " + dailyWind.toString() + " MPH";
+  return $("<div class='daily-detail-wind'>" + finalWind + "</div>");
+};
+
+// this gets humidity for 5 day forecast div
+var getSingleDayHumidity = function (dailyHumidity) {
+  var finalHumidity = "Humidity: " + dailyHumidity + "%";
+  return $("<div class='daily-detail-humidity'>" + finalHumidity + "</div>");
+};
+
+// this gets 5 day forecast detail div
+var getSingleDayDiv = function (dailyDetail) {
+  //console.log("--------");
+  //console.log("unix date -> " + dailyDetail.dt);
+  //console.log("weather icon -> " + dailyDetail.weather[0].icon);
+  //console.log("temp -> " + dailyDetail.temp.max);
+  //console.log("wind -> " + dailyDetail.wind_speed);
+  //console.log("humidity -> " + dailyDetail.humidity);
+  //console.log("--------");
+
+  var singleDay = $("<div class='daily-detail'></div>");
+
+  singleDay.append(getSingleDayDate(dailyDetail.dt));
+  singleDay.append(getSingleDayWeatherIcon(dailyDetail.weather[0].icon));
+  singleDay.append(getSingleDayTemp(dailyDetail.temp.max));
+  singleDay.append(getSingleDayWind(dailyDetail.wind_speed));
+  singleDay.append(getSingleDayHumidity(dailyDetail.humidity));
+
+  return singleDay;
+};
+
+// this creates the detail div for a single day of five day forecast
+var getSingleDayDetail = function (singleDay) {
+  var dailyDiv = $("<div class='pure-u-1 pure-u-sm-1-5'></div>");
+  dailyDiv.append(getSingleDayDiv(singleDay));
+  return dailyDiv;
+};
+
 // this creates a five day forecast div and adds it to the five-day-container
 var createFiveDayForecast = function (data) {
   console.log("createFiveDayForecast START...");
   console.log(data);
+
+  //clear out the five-day-container
+  var fiveDayForecast = $("#five-day-container");
+  fiveDayForecast.empty();
+
+  // create a div that is a single colum for this row
+  var fiveDayColumn = $("<div class='pure-u-1' id='five-day-column'></div>");
+
+  // create a row for the title
+  fiveDayColumn.append(
+    $(
+      "<div class='pure-g' id='five-day-title'><h3 class='pure-u-1'>5-Day Forecast:</h3></div"
+    )
+  );
+
+  // create a row for the five day forecast
+  var fiveDayDetail = $("<div class='pure-g' id='five-day-detail'></div>");
+
+  // now add the five days to this div
+  for (var i = 1; i < 6; i++) {
+    fiveDayDetail.append(getSingleDayDetail(data[i]));
+  }
+
+  // now append this div
+  fiveDayColumn.append(fiveDayDetail);
+
+  //now append this column to the master div
+  fiveDayForecast.append(fiveDayColumn);
 };
 
 // this is the function that gets the current & 5 day forecast for a city

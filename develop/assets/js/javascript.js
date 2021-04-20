@@ -74,6 +74,75 @@ var addItemToSearchHistory = function (item) {
   }
 };
 
+// this creates a header element with current city and date
+var getCurrentCityAndDate = function (cityName, currentDateUnix) {
+  // create the city & date header
+  // this is a div that contains the city and current date, and an image of current weather
+  var currentDate = moment.unix(currentDateUnix).format("(MM/DD/YYYY)");
+  console.log("current date -> " + currentDate);
+
+  return $(
+    "<h3 id='current-conditions-header'>" +
+      cityName +
+      " " +
+      currentDate +
+      "</h3>"
+  );
+};
+
+// this creates an image element with current weather icon
+var getCurrentWeatherIcon = function (currentIcon) {
+  console.log("current icon -> " + currentIcon);
+  // weather icon will be off the form
+  // http://openweathermap.org/img/wn/10d@2x.png where "10d" is the icon code
+  var currentIconUrl =
+    "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png";
+
+  return $(
+    "<img id='current-conditions-icon' src='" + currentIconUrl + "'></img>"
+  );
+};
+
+// this creates a div with the current city and date header + the current weather icon
+var getCurrentDayHeader = function (cityName, currentDateUnix, currentIcon) {
+  // create a div that will contain a header element and a weather icon element
+  var currentDayHeader = $("<div id='current-conditions-headline'></div>");
+
+  currentDayHeader.append(getCurrentCityAndDate(cityName, currentDateUnix));
+  currentDayHeader.append(getCurrentWeatherIcon(currentIcon));
+
+  return currentDayHeader;
+};
+
+// this creates a div with current temperature
+var getCurrentTemp = function (currentTemp) {
+  // format the current temp
+  // drop the decimal point, only keep to left of decimal point
+
+  var currentComponents = currentTemp.toString().split(".");
+  var finalTemp =
+    "Temp: " + currentComponents[0] + " " + String.fromCharCode(176) + "F";
+
+  return $("<div id='current-conditions-temp'>" + finalTemp + "</div>");
+};
+
+// this creates a div with current wind
+var getCurrentWind = function (currentWind) {
+  var finalWind = "Wind: " + currentWind.toString() + " MPH";
+  console.log("final wind -> " + finalWind);
+
+  return $("<div id='current-conditions-wind'>" + finalWind + "</div>");
+};
+
+// this creates a div with current humidity
+var getCurrentHumidity = function (currentHumidity) {
+  var finalHumidity = "Humidity: " + currentHumidity + "%";
+
+  return $("<div id='current-conditions-wind'>" + finalHumidity + "</div>");
+};
+
+// this creates a div with current UV index
+
 // this creates a current conditions div and adds it to the current-conditions-container
 var createCurrentConditions = function (cityName, data) {
   console.log("createCurrentConditions START...");
@@ -88,19 +157,10 @@ var createCurrentConditions = function (cityName, data) {
   // create the new container
   var border = $("<div id='current-conditions-border'></div>");
 
-  // create the city & date header
-  // this is a div that contains the city and current date, and an image of current weather
-  var currentDate = moment.unix(data.dt).format("(MM/DD/YYYY)");
-  console.log("current date -> " + currentDate);
-
-  var header = $(
-    "<h3 id='current-conditions-header'>" +
-      cityName +
-      " " +
-      currentDate +
-      "</h3>"
-  );
-  border.append(header);
+  border.append(getCurrentDayHeader(cityName, data.dt, data.weather[0].icon));
+  border.append(getCurrentTemp(data.temp));
+  border.append(getCurrentWind(data.wind_speed));
+  border.append(getCurrentHumidity(data.humidity));
 
   // now add the whole thing to the current conditions
   currentConditions.append(border);

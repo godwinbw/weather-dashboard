@@ -89,8 +89,19 @@ body {
   border: 1px solid darkslategrey;
 }
 
-#current-conditions-header {
+#current-conditions-headline {
   margin-left: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+#current-conditions-header {
+  display: inline-block;
+}
+
+#current-conditions-icon {
+  display: inline-block;
+  max-height: 50px;
 }

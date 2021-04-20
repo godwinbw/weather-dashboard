@@ -138,10 +138,52 @@ var getCurrentWind = function (currentWind) {
 var getCurrentHumidity = function (currentHumidity) {
   var finalHumidity = "Humidity: " + currentHumidity + "%";
 
-  return $("<div id='current-conditions-wind'>" + finalHumidity + "</div>");
+  return $("<div id='current-conditions-humidity'>" + finalHumidity + "</div>");
 };
 
+// this returns a span class for uvi index
+var getUviSpanClassName = function (currentUvi) {
+  // this will return a class name for the uvi index, based on current value
+  // values from http://nou-tt.blogspot.com/2016/02/what-uv-index-is-all-about.html
+
+  var uvSpanClass = "uv-severity-low";
+
+  if (currentUvi < 3) {
+    // uvi 0 to 3 is LOW
+    uvSpanClass = "uv-severity-low";
+  } else if (currentUvi < 6) {
+    // uvi 3 to 6 is moderate
+    uvSpanClass = "uv-severity-moderate";
+  } else if (currentUvi < 8) {
+    // uvi 6 to 8 is high
+    uvSpanClass = "uv-severity-high";
+  } else if (currentUvi < 11) {
+    // uvi 8 to 11 is very high
+    uvSpanClass = "uv-severity-veryhigh";
+  } else {
+    // anything over 11 is extreme
+    uvSpanClass = "uv-severity-extreme";
+  }
+
+  return uvSpanClass;
+};
 // this creates a div with current UV index
+var getCurrentUvi = function (currentUvi) {
+  // this will return an element with a span class that set the background color
+
+  var uvClassname = getUviSpanClassName(currentUvi);
+
+  finalUvi =
+    "UV Index: " +
+    "<span class='" +
+    uvClassname +
+    "'>   " +
+    currentUvi.toString() +
+    "   </span>";
+  console.log("final uvi -> " + finalUvi);
+
+  return $("<div id='current-conditions-uvi'>" + finalUvi + "</div>");
+};
 
 // this creates a current conditions div and adds it to the current-conditions-container
 var createCurrentConditions = function (cityName, data) {
@@ -161,6 +203,7 @@ var createCurrentConditions = function (cityName, data) {
   border.append(getCurrentTemp(data.temp));
   border.append(getCurrentWind(data.wind_speed));
   border.append(getCurrentHumidity(data.humidity));
+  border.append(getCurrentUvi(data.uvi));
 
   // now add the whole thing to the current conditions
   currentConditions.append(border);

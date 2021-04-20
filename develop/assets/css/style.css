@@ -105,3 +105,59 @@ body {
   display: inline-block;
   max-height: 50px;
 }
+
+#current-conditions-temp {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+#current-conditions-wind {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#current-conditions-humidity {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#current-conditions-uvi {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.uv-severity-low {
+  white-space: pre;
+  border-radius: 5px;
+  background-color: var(--uv-low);
+  color: white;
+}
+
+.uv-severity-moderate {
+  white-space: pre;
+  border-radius: 5px;
+  background-color: var(--uv-moderate);
+  color: white;
+}
+
+.uv-severity-high {
+  white-space: pre;
+  border-radius: 5px;
+  background-color: var(--uv-high);
+  color: white;
+}
+
+.uv-severity-veryhigh {
+  white-space: pre;
+  border-radius: 5px;
+  background-color: var(--uv-veryhigh);
+  color: white;
+}
+
+.uv-severity-extreme {
+  white-space: pre;
+  border-radius: 5px;
+  background-color: var(--uv-extreme);
+  color: white;
+}

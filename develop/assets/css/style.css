@@ -66,6 +66,7 @@ body {
 #search-button {
   width: 100%;
   border-radius: 5px;
+  background-color: var(--btn-search);
 }
 
 /* SEARCH HISTORY styling start */
@@ -78,4 +79,18 @@ body {
   margin-top: 10px;
   margin-left: 5px;
   border-radius: 5px;
+  background-color: var(--btn-history);
+}
+
+/* CURRENT CONDITIONS styling start */
+#current-conditions-border {
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid darkslategrey;
+}
+
+#current-conditions-header {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

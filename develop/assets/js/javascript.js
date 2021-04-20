@@ -74,6 +74,44 @@ var addItemToSearchHistory = function (item) {
   }
 };
 
+// this creates a current conditions div and adds it to the current-conditions-container
+var createCurrentConditions = function (cityName, data) {
+  console.log("createCurrentConditions START...");
+  console.log(data);
+  // data will be in the format of the 'current' data in one call api response
+  // https://openweathermap.org/api/one-call-api
+
+  // clear out current-conditions-container
+  var currentConditions = $("#current-conditions-container");
+  currentConditions.empty();
+
+  // create the new container
+  var border = $("<div id='current-conditions-border'></div>");
+
+  // create the city & date header
+  // this is a div that contains the city and current date, and an image of current weather
+  var currentDate = moment.unix(data.dt).format("(MM/DD/YYYY)");
+  console.log("current date -> " + currentDate);
+
+  var header = $(
+    "<h3 id='current-conditions-header'>" +
+      cityName +
+      " " +
+      currentDate +
+      "</h3>"
+  );
+  border.append(header);
+
+  // now add the whole thing to the current conditions
+  currentConditions.append(border);
+};
+
+// this creates a five day forecast div and adds it to the five-day-container
+var createFiveDayForecast = function (data) {
+  console.log("createFiveDayForecast START...");
+  console.log(data);
+};
+
 // this is the function that gets the current & 5 day forecast for a city
 var getWeatherForCity = function (searchCity) {
   /// get the lat & lon of the user entered city
@@ -113,6 +151,8 @@ var getWeatherForCity = function (searchCity) {
               // 3. make a 5 day forecast div and populate with data
 
               addItemToSearchHistory(cityFound);
+              createCurrentConditions(cityFound, data.current);
+              createFiveDayForecast(data.daily);
             });
           } else {
             // had trouble getting detailed data

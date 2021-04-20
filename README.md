@@ -41,12 +41,10 @@
 
 <https://github.com/godwinbw/weather-dashboard>
 
-### **Challenge Five - live link**
+### **Challenge Six - live link**
 
 <https://godwinbw.github.io/weather-dashboard/develop/>
 
-### **Challenge Five - screenshot**
+### **Challenge Six - screenshot**
 
-<!--
-<img src="./challenge_5_screenshot.png" style="width: 50%; height=auto;">
--->
+<img src="./challenge_6_screenshot.png" style="width: 50%; height=auto;">
